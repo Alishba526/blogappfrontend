@@ -1,6 +1,6 @@
 'use client';
 
-import { useNotifications } from "@/hooks/useNotifications";
+import { useNotifications } from "@/hooks/use-notifications";
 
 export default function NotificationListener() {
     useNotifications();
