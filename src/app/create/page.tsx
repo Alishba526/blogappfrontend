@@ -9,7 +9,9 @@ import toast from 'react-hot-toast';
 import { useSearchParams } from 'next/navigation';
 import { Plus, Sparkles, Wand2, PenTool, Layout, Settings2, Loader2 } from 'lucide-react';
 
-export default function CreateBlogPage() {
+import { Suspense } from 'react';
+
+function CreateBlogContent() {
   const { isAuthenticated, loading } = useAuth();
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -269,5 +271,13 @@ export default function CreateBlogPage() {
         </div>
       </div>
     </div>
+  );
+}
+
+export default function CreateBlogPage() {
+  return (
+    <Suspense fallback={<div className="flex justify-center items-center h-screen"><Loader2 className="animate-spin text-purple-600" size={40} /></div>}>
+      <CreateBlogContent />
+    </Suspense>
   );
 }

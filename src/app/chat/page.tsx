@@ -9,7 +9,9 @@ import toast from 'react-hot-toast';
 import { Loader2, Send, Paperclip, Smile, MoreVertical, Phone, Video, Search, ArrowLeft, Check, CheckCheck } from 'lucide-react';
 import { useSearchParams } from 'next/navigation';
 
-export default function ChatPage() {
+import { Suspense } from 'react';
+
+function ChatContent() {
   const { user } = useAuth();
   const searchParams = useSearchParams();
   const initialChatId = searchParams.get('chatId');
@@ -308,6 +310,14 @@ export default function ChatPage() {
         )}
       </div>
     </div>
+  );
+}
+
+export default function ChatPage() {
+  return (
+    <Suspense fallback={<div className="flex justify-center items-center h-screen"><Loader2 className="animate-spin text-purple-600" size={40} /></div>}>
+      <ChatContent />
+    </Suspense>
   );
 }
 
