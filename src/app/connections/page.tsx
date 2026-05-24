@@ -63,7 +63,7 @@ export default function ConnectionsPage() {
 
   const startChat = async (userId: string) => {
     try {
-      const { data } = await api.post('/api/chat', { userId });
+      const { data } = await api.post('/chat', { userId });
       router.push(`/chat?chatId=${data._id}`);
     } catch (error) {
       toast.error('Failed to start chat');

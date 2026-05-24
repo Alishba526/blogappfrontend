@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_URL = 'https://blogappbackend-one.vercel.app/api';
+const API_URL = process.env.NEXT_PUBLIC_API_URL || 'https://blogappbackend-one.vercel.app/api';
 
 // Create axios instance
 export const api = axios.create({
