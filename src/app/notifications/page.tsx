@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from 'react';
 import { api } from '@/lib/api';
-import { useAuth } from '@/lib/AuthContext';
 import Image from 'next/image';
 import Link from 'next/link';
 import toast from 'react-hot-toast';
@@ -10,7 +9,6 @@ import { Loader2, Heart, MessageSquare, UserPlus, UserCheck, Repeat, Bell, Check
 import { formatDistanceToNow } from 'date-fns';
 
 export default function NotificationsPage() {
-  const { user } = useAuth();
   const [notifications, setNotifications] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -24,6 +22,7 @@ export default function NotificationsPage() {
       const { data } = await api.get('/notifications');
       setNotifications(data);
     } catch (error) {
+      console.error('Failed to load notifications:', error);
       toast.error('Failed to load notifications');
     } finally {
       setLoading(false);
@@ -35,7 +34,7 @@ export default function NotificationsPage() {
       await api.put(`/notifications/${id}/read`);
       setNotifications(prev => prev.map(n => n._id === id ? { ...n, isRead: true } : n));
     } catch (error) {
-      console.error('Error marking as read');
+      console.error('Error marking as read:', error);
     }
   };
 
@@ -45,6 +44,7 @@ export default function NotificationsPage() {
       setNotifications(prev => prev.map(n => ({ ...n, isRead: true })));
       toast.success('All notifications marked as read');
     } catch (error) {
+      console.error('Failed to mark all as read:', error);
       toast.error('Failed to mark all as read');
     }
   };
@@ -55,6 +55,7 @@ export default function NotificationsPage() {
       setNotifications(prev => prev.filter(n => n._id !== id));
       toast.success('Notification deleted');
     } catch (error) {
+      console.error('Failed to delete notification:', error);
       toast.error('Failed to delete notification');
     }
   };
@@ -115,17 +116,17 @@ export default function NotificationsPage() {
                     </div>
                   </div>
                   <div>
-                    <p className="text-gray-800">
+                    <div className="text-gray-800">
                       <Link href={`/profile/${notif.sender?._id}`} className="font-bold hover:text-purple-600 transition">
                         {notif.sender?.name}
                       </Link>{' '}
                       {notif.message}{' '}
                       {notif.blog && (
                         <Link href={`/blog/${notif.blog._id}`} className="font-semibold text-purple-600 hover:underline">
-                          "{notif.blog.title}"
+                          &quot;{notif.blog.title}&quot;
                         </Link>
                       )}
-                    </p>
+                    </div>
                     <p className="text-xs text-gray-500 mt-1 flex items-center gap-1">
                       <Clock size={12} /> {formatDistanceToNow(new Date(notif.createdAt))} ago
                     </p>

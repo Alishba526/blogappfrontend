@@ -4,7 +4,6 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/lib/AuthContext';
 import Link from 'next/link';
-import toast from 'react-hot-toast';
 import { Mail, Lock, ArrowRight } from 'lucide-react';
 import { useEffect } from 'react';
 
@@ -41,7 +40,8 @@ export default function LoginPage() {
         <div className="bg-white rounded-lg shadow-xl p-8">
           <h2 className="text-3xl font-bold text-gray-800 mb-2">Welcome Back</h2>
           <p className="text-gray-600 mb-8">
-            Login to your ARQ Blogs account          </p>
+            Login to your ARQ Blogs account
+          </p>
 
           <form onSubmit={handleSubmit} className="space-y-6">
             {/* Email */}
@@ -93,7 +93,7 @@ export default function LoginPage() {
 
           {/* Sign Up Link */}
           <p className="text-center text-gray-600 mt-6">
-            Don't have an account?{' '}
+            Don&apos;t have an account?{' '}
             <Link
               href="/register"
               className="text-purple-600 font-semibold hover:underline"

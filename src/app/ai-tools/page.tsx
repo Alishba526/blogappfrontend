@@ -1,8 +1,6 @@
 'use client';
 
-import { useState } from 'react';
-import { Sparkles, Image as ImageIcon, Video, Mic, Podcast, Scan, Scissors, Shirt, Loader2, Wand2 } from 'lucide-react';
-import toast from 'react-hot-toast';
+import { Sparkles, Image as ImageIcon, Video, Mic, Podcast, Scan, Scissors, Shirt, Wand2 } from 'lucide-react';
 
 export default function AIToolsPage() {
   const tools = [
