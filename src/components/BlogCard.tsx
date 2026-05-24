@@ -15,8 +15,8 @@ interface BlogCardProps {
   images: Array<{ url: string }>;
   author: any;
   likes: string[];
-  views: Array<{ user: string; viewedAt: Date }>;
-  reposts: Array<{ user: string; repostedAt: Date }>;
+  views?: number | Array<{ user: string; viewedAt: Date }>;
+  reposts?: number | Array<{ user: string; repostedAt: Date }>;
   createdAt: string;
   onDelete?: () => void;
   isOwnBlog?: boolean;
@@ -29,8 +29,8 @@ export default function BlogCard({
   images,
   author,
   likes,
-  views,
-  reposts,
+  views = 0,
+  reposts = 0,
   createdAt,
   onDelete,
   isOwnBlog = false,
@@ -39,6 +39,9 @@ export default function BlogCard({
   const isLiked = user && likes.includes(user._id);
   const isSaved = user && (user as any).savedBlogs?.includes(_id);
   const formattedDate = new Date(createdAt).toLocaleDateString();
+
+  const viewsCount = typeof views === 'number' ? views : views.length;
+  const repostsCount = typeof reposts === 'number' ? reposts : reposts.length;
 
   const handleLike = async (e: React.MouseEvent) => {
     e.preventDefault();
@@ -162,12 +165,12 @@ export default function BlogCard({
             className="flex items-center gap-0.5 hover:text-green-500 transition"
           >
             <Repeat size={14} />
-            <span>{reposts.length}</span>
+            <span>{repostsCount}</span>
           </button>
 
           <div className="flex items-center gap-0.5">
             <Eye size={14} />
-            <span>{views.length}</span>
+            <span>{viewsCount}</span>
           </div>
         </div>
 
