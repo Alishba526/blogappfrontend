@@ -1,6 +1,6 @@
 'use client';
 
-import { useNotifications } from "@/app/notifications/page";
+import { useNotifications } from "@/hooks/useNotifications";
 
 export default function NotificationListener() {
     useNotifications();
